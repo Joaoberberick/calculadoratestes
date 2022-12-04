@@ -1,0 +1,61 @@
+html, body {
+  height: 100%;
+  width: 75%;
+}
+
+html {
+  display: table;
+  margin: auto;
+}
+
+img {
+  width: 25%;
+}
+
+body {
+  display: table-cell;
+  vertical-align: middle;
+  text-align: center;
+}
+
+input {
+  padding: 1.5% 1.5%;
+  margin: 1% 0;
+  box-sizing: border-box;
+}
+
+resultados {
+  margin-top: auto;
+}
+
+@media (max-width: 1000px){
+
+  html, body{
+    width: 100%;
+    margin: 0;
+  }
+
+  img {
+    align-self: center;
+    width: 50%;
+    margin-top: 10px;
+  }
+
+  form{
+    display: flex;
+    flex-direction: column;
+    height: auto;
+  }
+
+  input{
+    margin-bottom: 5%;
+    margin-left: 5%;
+    margin-right: 5%;
+  }
+
+  h3{
+    font-size: 5vw;
+  }
+
+
+}
