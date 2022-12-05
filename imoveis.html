@@ -70,7 +70,7 @@
       <br>
     </div>
     <div class="form-outline w-50 mx-auto">
-      <input type="submit" value="calcular" onclick="calcular()" class="btn btn-primary">
+      <input type="submit" value="Calcular" onclick="calcular()" class="btn btn-primary">
     </div>
     
   </form>
@@ -100,13 +100,20 @@
       let porcentagem = (lance * 100) / credito;
       porcentagem2 = porcentagem.toFixed(2);
       let prazo_r = prazo - 1;
-      let desconto = parcela - segunda;
+
+      if(prazo_r < 120){
+        desconto = lance / prazo;
+      }
+      else{
+        desconto = lance / 120;
+      }
 
       credito = accounting.formatMoney(credito);
       segunda = accounting.formatMoney(segunda);
       desconto = accounting.formatMoney(desconto);
 
-      texto = `Simulação de consórcio de ${nome}:\nValor do crédito: R$${credito}\nPrazo escolhido: ${prazo} meses\nRedução de futuras parcelas: R$${desconto}\nSegunda parcela em diante: R$${segunda}`
+      texto = `Simulação de consórcio de ${nome}:\nValor do crédito: R$${credito}\nPrazo escolhido: ${prazo} meses\nPrimeira Parcela: R$${parcela}\nRedução de futuras parcelas: R$${desconto}\nSegunda parcela em diante: R$${segunda}`
+      
 
       const resultados = document.querySelector('#resultados');
       resultados.style.display = "block";
