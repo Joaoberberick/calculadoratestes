@@ -25,11 +25,10 @@
   <img src="style/logo_horizontal.png" alt="">
   <form>
     <div class="form-group text-end w-75">
-      <a href="imoveis.html">Versão para imóveis</a>
+      <a href="index.html">Versão para demais consórcios</a>
       <br>
     </div>
     <div class="form-group text-start">
-      <br>
       <div class="form-outline w-50 mx-auto">
         <label for="nome">Nome do cliente:</label>
         <input type="text" class="form-control" id="nome" name="nome">
@@ -50,6 +49,12 @@
         <label for="parcela">1ª Parcela:</label>
         <input type="text" class="form-control" id="parcela" name="parcela">
           <script type="text/javascript">$("#parcela").maskMoney({prefix:'R$ ', allowNegative: true, thousands:'.', decimal:',', affixesStay: false});</script>
+      </div>
+      <br>
+      <div class="form-outline w-50 mx-auto">
+        <label for="segunda">2ª Parcela em diante:</label>
+        <input type="text" class="form-control" id="segunda" name="segunda">
+          <script type="text/javascript">$("#segunda").maskMoney({prefix:'R$ ', allowNegative: true, thousands:'.', decimal:',', affixesStay: false});</script>
       </div>
       <br>
       <div class="form-outline w-50 mx-auto">
@@ -86,6 +91,8 @@
       credito = accounting.unformat(credito);
       let parcela = document.getElementById("parcela").value;
       parcela = accounting.unformat(parcela);
+      let segunda = document.getElementById("segunda").value;
+      segunda = accounting.unformat(segunda);
       let prazo = document.getElementById("prazo").value;
       let lance = document.getElementById("lance").value;
       lance = accounting.unformat(lance);
@@ -93,8 +100,7 @@
       let porcentagem = (lance * 100) / credito;
       porcentagem2 = porcentagem.toFixed(2);
       let prazo_r = prazo - 1;
-      let desconto = lance / prazo_r;
-      let segunda = parcela - desconto;
+      let desconto = parcela - segunda;
 
       credito = accounting.formatMoney(credito);
       segunda = accounting.formatMoney(segunda);
