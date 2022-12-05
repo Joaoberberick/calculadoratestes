@@ -65,19 +65,20 @@
     </div>
     
   </form>
-  <div class="resultados">
+  <div style="display: none;" id="resultados">
     <p><span id="texto"></span></p>
     <div class="form-outline w-50 mx-auto">
-      <input type="button" value="enviar" onclick="enviar()" class="btn btn-primary">
+      <input type="button" value="Enviar por Whatsapp" onclick="enviar()" class="btn btn-success">
     </div>
   </div>
 
 
   <script>
+    var texto = "";
     function calcular(){
       const nome = document.getElementById("nome").value;
       const telefone = document.getElementById("telefone").value;
-      let credito = document.getElementsByName("credito").value;
+      let credito = document.getElementById("credito").value;
       credito = accounting.unformat(credito);
       let parcela = document.getElementById("parcela").value;
       parcela = accounting.unformat(parcela);
@@ -91,20 +92,24 @@
       let desconto = lance / prazo_r;
       let segunda = parcela - desconto;
 
+      credito = accounting.formatMoney(credito);
       segunda = accounting.formatMoney(segunda);
       desconto = accounting.formatMoney(desconto);
 
-      let texto = `Simulação de consorcio de ${nome}: \n Valor do credito: ${credito}\n
-      Prazo escolhido: ${prazo} meses\n Redução de futuras parcelas: ${desconto}\n
-      Segunda parcela em diante: R$${segunda}`
+      texto = `Simulação de consórcio de ${nome}:\nValor do crédito: R$${credito}\nPrazo escolhido: ${prazo} meses\nRedução de futuras parcelas: R$${desconto}\nSegunda parcela em diante: R$${segunda}`
 
-      document.getElementById("texto").innerHTML = texto;
+      const resultados = document.querySelector('#resultados');
+      resultados.style.display = "block";
+      document.getElementById("texto").innerHTML = texto.replaceAll("\n", "<br>");
+      $("html, body").animate({
+        scrollTop: $('html, body').get(0).scrollHeight
+      }, 2000);
       event.preventDefault();
     }
 
 
   function enviar(){
-    var win = window.open("https://api.whatsapp.com/send?phone=55"+telefone.value+"&text="+texto.value);
+    var win = window.open("https://api.whatsapp.com/send?phone=55"+telefone.value+"&text="+encodeURI(texto));
   }
 
   </script>
