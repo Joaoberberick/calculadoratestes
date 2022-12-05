@@ -39,7 +39,7 @@
       <div class="form-outline w-50 mx-auto">
         <label for="credito">Credito:</label>
         <input type="text" class="form-control" id="credito" name="credito">
-          <script type="text/javascript">$("#credito").maskMoney({prefix:'R$ ', allowNegative: true, thousands:'.', decimal:',', affixesStay: false});</script>
+        <script type="text/javascript">$("#credito").maskMoney({prefix:'R$ ', allowNegative: true, thousands:'.', decimal:',', affixesStay: false});</script>
       </div>
       <br>
       <div class="form-outline w-50 mx-auto">
@@ -66,20 +66,18 @@
     
   </form>
   <div class="resultados">
-    <h3>Credito / lance = <span id="porcentagem2"></span><span id="porcento"></span></h3>
-    <h3>Prazo restante = <span id="prazo_r"></span> <span id="meses"></span></h3>
-    <h3>Valor desconto = <span id="reais"></span> <span id="desconto"></span></h3>
-    <h3>2ª parcela em diante = <span id="reais2"></span> <span id="segunda"></span></h3>
-    <h3>Cliente = <span id="nomecliente"></span></h3>
-    <h3>Whatsapp = <span id="telefonecliente"></span></h3>
+    <p><span id="texto"></span></p>
+    <div class="form-outline w-50 mx-auto">
+      <input type="button" value="enviar" onclick="enviar()" class="btn btn-primary">
+    </div>
   </div>
 
 
   <script>
     function calcular(){
-      let nome = document.getElementById("nome").value;
-      let telefone = document.getElementById("telefone").value;
-      let credito = document.getElementById("credito").value;
+      const nome = document.getElementById("nome").value;
+      const telefone = document.getElementById("telefone").value;
+      let credito = document.getElementsByName("credito").value;
       credito = accounting.unformat(credito);
       let parcela = document.getElementById("parcela").value;
       parcela = accounting.unformat(parcela);
@@ -96,22 +94,19 @@
       segunda = accounting.formatMoney(segunda);
       desconto = accounting.formatMoney(desconto);
 
-  
+      let texto = `Simulação de consorcio de ${nome}: \n Valor do credito: ${credito}\n
+      Prazo escolhido: ${prazo} meses\n Redução de futuras parcelas: ${desconto}\n
+      Segunda parcela em diante: R$${segunda}`
 
-      document.getElementById("meses").innerHTML = "meses";
-      document.getElementById("reais").innerHTML = "R$";
-      document.getElementById("reais2").innerHTML = "R$";
-      document.getElementById("porcento").innerHTML = "%";
-
-      document.getElementById("credito").innerHTML = credito;
-      document.getElementById("porcentagem2").innerHTML = porcentagem2;
-      document.getElementById("prazo_r").innerHTML = prazo_r;
-      document.getElementById("desconto").innerHTML = desconto;
-      document.getElementById("segunda").innerHTML = segunda;
-      document.getElementById("nomecliente").innerHTML = nome;
-      document.getElementById("telefonecliente").innerHTML = telefone;
+      document.getElementById("texto").innerHTML = texto;
       event.preventDefault();
     }
+
+
+  function enviar(){
+    var win = window.open("https://api.whatsapp.com/send?phone=55"+telefone.value+"&text="+texto.value);
+  }
+
   </script>
 </body>
 </html> 
