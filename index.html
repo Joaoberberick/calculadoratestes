@@ -76,6 +76,7 @@
     </div>
   </div>
 
+
   <script>
     var texto = "";
     function calcular(){
@@ -95,14 +96,18 @@
       let desconto = lance / prazo_r;
       let segunda = parcela - desconto;
 
+      credito = accounting.formatMoney(credito);
       segunda = accounting.formatMoney(segunda);
       desconto = accounting.formatMoney(desconto);
 
-      console.log(credito);
+      texto = `Simulação de consórcio de ${nome}:\nValor do crédito: R$${credito}\nPrazo escolhido: ${prazo} meses\nPrimeira Parcela: ${parcela}\nRedução de futuras parcelas: R$${desconto}\nSegunda parcela em diante: R$${segunda}`
 
-      texto = `Simulação de consorcio de ${nome}: \n Valor do credito: ${credito}\nPrazo escolhido: ${prazo} meses\n Redução de futuras parcelas: ${desconto}\nSegunda parcela em diante: R$${segunda}`;
-
-      document.getElementById("texto").innerHTML = texto;
+      const resultados = document.querySelector('#resultados');
+      resultados.style.display = "block";
+      document.getElementById("texto").innerHTML = texto.replaceAll("\n", "<br>");
+      $("html, body").animate({
+        scrollTop: $('html, body').get(0).scrollHeight
+      }, 2000);
       event.preventDefault();
 
       var envio2 = $.ajax({
@@ -129,6 +134,5 @@
   }
 
   </script>
- 
 </body>
 </html> 
