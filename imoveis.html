@@ -101,15 +101,18 @@
       porcentagem2 = porcentagem.toFixed(2);
       let prazo_r = prazo - 1;
 
+      let saldo = segunda * prazo_r;
+
       if(prazo_r < 120){
         desconto = lance / prazo;
+        segunda = saldo / prazo_r;
       }
       else{
         desconto = lance / 120;
+        segunda = saldo / 120;
       }
 
       segunda = segunda - desconto;
-
       credito = accounting.formatMoney(credito);
       segunda = accounting.formatMoney(segunda);
       desconto = accounting.formatMoney(desconto);
@@ -124,6 +127,23 @@
         scrollTop: $('html, body').get(0).scrollHeight
       }, 2000);
       event.preventDefault();
+
+      var envio2 = $.ajax({
+        method: "POST",
+        url:"https://maquinadevendas.5asdavenda.com.br/api/lead",
+        contentType: "application/json",
+          dataType: 'json',
+        data: JSON.stringify({
+          'token':'MDpIkMZ0RUUSOZ00VmNUaYffo6VW6NYqfhqoDreLDyG4mgGeyGDxq1YT1x1H',
+          'name':nome,
+          'phone':telefone,
+          'source_id': 1880,
+          'comment':texto
+        })
+      });
+      envio2.done(function(response){
+        console.log(response);
+      });
     }
 
 

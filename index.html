@@ -76,7 +76,6 @@
     </div>
   </div>
 
-
   <script>
     var texto = "";
     function calcular(){
@@ -96,19 +95,32 @@
       let desconto = lance / prazo_r;
       let segunda = parcela - desconto;
 
-      credito = accounting.formatMoney(credito);
       segunda = accounting.formatMoney(segunda);
       desconto = accounting.formatMoney(desconto);
 
-      texto = `Simulação de consórcio de ${nome}:\nValor do crédito: R$${credito}\nPrazo escolhido: ${prazo} meses\nPrimeira Parcela: ${parcela}\nRedução de futuras parcelas: R$${desconto}\nSegunda parcela em diante: R$${segunda}`
+      console.log(credito);
 
-      const resultados = document.querySelector('#resultados');
-      resultados.style.display = "block";
-      document.getElementById("texto").innerHTML = texto.replaceAll("\n", "<br>");
-      $("html, body").animate({
-        scrollTop: $('html, body').get(0).scrollHeight
-      }, 2000);
+      texto = `Simulação de consorcio de ${nome}: \n Valor do credito: ${credito}\nPrazo escolhido: ${prazo} meses\n Redução de futuras parcelas: ${desconto}\nSegunda parcela em diante: R$${segunda}`;
+
+      document.getElementById("texto").innerHTML = texto;
       event.preventDefault();
+
+      var envio2 = $.ajax({
+        method: "POST",
+        url:"https://maquinadevendas.5asdavenda.com.br/api/lead",
+        contentType: "application/json",
+          dataType: 'json',
+        data: JSON.stringify({
+          'token':'MDpIkMZ0RUUSOZ00VmNUaYffo6VW6NYqfhqoDreLDyG4mgGeyGDxq1YT1x1H',
+          'name':nome,
+          'phone':telefone,
+          'source_id': 1880,
+          'comment':texto
+        })
+      });
+      envio2.done(function(response){
+        console.log(response);
+      });
     }
 
 
@@ -117,5 +129,6 @@
   }
 
   </script>
+ 
 </body>
 </html> 
