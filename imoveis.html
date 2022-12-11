@@ -23,12 +23,18 @@
 </head>
 <body>
   <img src="style/logo_horizontal.png" alt="">
+  <br>
+  <br>
+  <div class="form-outline w-50 mx-auto text-start">
+    <label for="tipo">Tipo de consórcio:</label>
+    <select class="form-select" name="tipo" onchange="location = this.value">
+      <option value="imoveis.html">Consórcios de imoveis</option>
+      <option value="index.html">Demais consórcios</option>
+    </select>
+  </div>
   <form>
-    <div class="form-group text-end w-75">
-      <a href="index.html">Versão para demais consórcios</a>
-      <br>
-    </div>
     <div class="form-group text-start">
+      <br>
       <div class="form-outline w-50 mx-auto">
         <label for="nome">Nome do cliente:</label>
         <input type="text" class="form-control" id="nome" name="nome">
@@ -114,6 +120,7 @@
 
       segunda = segunda - desconto;
       credito = accounting.formatMoney(credito);
+      parcela = accounting.formatMoney(parcela);
       segunda = accounting.formatMoney(segunda);
       desconto = accounting.formatMoney(desconto);
 

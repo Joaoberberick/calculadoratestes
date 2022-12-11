@@ -23,11 +23,16 @@
 </head>
 <body>
   <img src="style/logo_horizontal.png" alt="">
+  <br>
+  <br>
+  <div class="form-outline w-50 mx-auto text-start">
+    <label for="tipo">Tipo de consórcio:</label>
+    <select class="form-select" name="tipo" onchange="location = this.value">
+      <option value="index.html">Demais consórcios</option>
+      <option value="imoveis.html">Consórcios de imoveis</option>
+    </select>
+  </div>
   <form>
-    <div class="form-group text-end w-75">
-      <a href="imoveis.html">Versão para imóveis</a>
-      <br>
-    </div>
     <div class="form-group text-start">
       <br>
       <div class="form-outline w-50 mx-auto">
@@ -98,9 +103,10 @@
 
       credito = accounting.formatMoney(credito);
       segunda = accounting.formatMoney(segunda);
+      parcela = accounting.formatMoney(parcela);
       desconto = accounting.formatMoney(desconto);
 
-      texto = `Simulação de consórcio de ${nome}:\nValor do crédito: R$${credito}\nPrazo escolhido: ${prazo} meses\nPrimeira Parcela: ${parcela}\nRedução de futuras parcelas: R$${desconto}\nSegunda parcela em diante: R$${segunda}`
+      texto = `Simulação de consórcio de ${nome}:\nValor do crédito: R$${credito}\nPrazo escolhido: ${prazo} meses\nPrimeira Parcela: R$${parcela}\nRedução de futuras parcelas: R$${desconto}\nSegunda parcela em diante: R$${segunda}`
 
       const resultados = document.querySelector('#resultados');
       resultados.style.display = "block";
@@ -110,22 +116,22 @@
       }, 2000);
       event.preventDefault();
 
-      var envio2 = $.ajax({
-        method: "POST",
-        url:"https://maquinadevendas.5asdavenda.com.br/api/lead",
-        contentType: "application/json",
-          dataType: 'json',
-        data: JSON.stringify({
-          'token':'MDpIkMZ0RUUSOZ00VmNUaYffo6VW6NYqfhqoDreLDyG4mgGeyGDxq1YT1x1H',
-          'name':nome,
-          'phone':telefone,
-          'source_id': 1880,
-          'comment':texto
-        })
-      });
-      envio2.done(function(response){
-        console.log(response);
-      });
+    //   var envio2 = $.ajax({
+    //     method: "POST",
+    //     url:"https://maquinadevendas.5asdavenda.com.br/api/lead",
+    //     contentType: "application/json",
+    //       dataType: 'json',
+    //     data: JSON.stringify({
+    //       'token':'MDpIkMZ0RUUSOZ00VmNUaYffo6VW6NYqfhqoDreLDyG4mgGeyGDxq1YT1x1H',
+    //       'name':nome,
+    //       'phone':telefone,
+    //       'source_id': 1880,
+    //       'comment':texto
+    //     })
+    //   });
+    //   envio2.done(function(response){
+    //     console.log(response);
+    //   });
     }
 
 
