@@ -29,7 +29,7 @@
     <label for="tipo">Tipo de consórcio:</label>
     <select class="form-select" name="tipo" onchange="location = this.value">
       <option value="imoveis.html">Consórcios de imoveis</option>
-      <option value="index.html">Demais consórcios</option>
+      <option value="index.html">Carro, Moto, Serviços</option>
     </select>
   </div>
   <form>
@@ -81,7 +81,11 @@
     
   </form>
   <div style="display: none;" id="resultados">
-    <p><span id="texto"></span></p>
+    <div style="text-align: center;">
+      <div class="w-50" style="display: inline-block; text-align: left;">
+        <p><span id="texto"></span></p>
+      </div>
+  </div>
     <div class="form-outline w-50 mx-auto">
       <input type="button" value="Enviar por Whatsapp" onclick="enviar()" class="btn btn-success">
     </div>
@@ -124,7 +128,7 @@
       segunda = accounting.formatMoney(segunda);
       desconto = accounting.formatMoney(desconto);
 
-      texto = `Simulação de consórcio de ${nome}:\nValor do crédito: R$${credito}\nPrazo escolhido: ${prazo} meses\nPrimeira Parcela: R$${parcela}\nRedução de futuras parcelas: R$${desconto}\nSegunda parcela em diante: R$${segunda}`
+      texto = `Simulação de consórcio de ${nome}:\nValor do crédito: R$${credito}\nPrazo escolhido: ${prazo} meses\nPrimeira Parcela: R$${parcela}\nRedução de futuras parcelas: R$${desconto}\nSegunda parcela em diante: R$${segunda}\nObservações:\n-Valor da parcela pode variar de acordo com o aumento do bem.\n--Este orçamento pode sofrer alterações sem aviso prévio, conforme alteração na tabela do consórcio e/ou disponibilidade de cotas.\nAgora me diz, ESSE É O PLANO IDEAL PRA VOCÊ, CERTO?`;
       
 
       const resultados = document.querySelector('#resultados');
